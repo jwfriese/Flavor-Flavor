@@ -16,6 +16,7 @@ go get github.com/jwfriese/flavor-flavor
 ```
 go get github.com/onsi/ginkgo/ginkgo`
 go get github.com/onsi/gomega/...
+go get github.com/Benjamintf1/Expanded-Unmarshalled-Matchers
 ```
 4. Set up your database. This repo provides a script that will spin up a
 Postgres instance in a container using Docker. Run it using the following
