@@ -91,5 +91,38 @@ var _ = Describe("/flavors", func() {
 				]`)))
 			})
 		})
+
+		Describe("Sending a bad request to create a new flavor", func() {
+			var (
+				response *http.Response
+			)
+
+			BeforeEach(func() {
+				requestMissingRequiredField := bytes.NewBuffer([]byte(`{}`))
+
+				request, createRequestErr := http.NewRequest("POST", url, requestMissingRequiredField)
+				request.Header.Add("Content-Type", "application/json")
+
+				Expect(createRequestErr).ToNot(HaveOccurred())
+
+				var doErr error
+				response, doErr = http.DefaultClient.Do(request)
+				Expect(doErr).ToNot(HaveOccurred())
+			})
+
+			It("returns a bad request error", func() {
+				Expect(response.StatusCode).To(Equal(http.StatusBadRequest))
+
+				responseBody, err := ioutil.ReadAll(response.Body)
+				Expect(err).ToNot(HaveOccurred())
+
+				err = response.Body.Close()
+				Expect(err).ToNot(HaveOccurred())
+
+				Expect(responseBody).To(MatchUnorderedJSON([]byte(`
+					{ "error": "Missing required field 'name'" }
+				`)))
+			})
+		})
 	})
 })
