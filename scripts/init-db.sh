@@ -16,6 +16,7 @@ spinUpContainer() {
 }
 
 initializeDatabase() {
+  PGPASSWORD=moreflava psql -Uflavor-flavor -hlocalhost -dpostgres -f ./scripts/create.sql
   PGPASSWORD=moreflava psql -Uflavor-flavor -hlocalhost -dpostgres -f ./scripts/reset.sql
 }
 

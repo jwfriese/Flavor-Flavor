@@ -1,6 +1,6 @@
-drop database if exists flavorflavor;
-create database flavorflavor;
-\connect flavorflavor
+drop table if exists affinities;
+drop table if exists flavors;
+
 create table flavors (
   id serial primary key,
   name varchar(100) not null
